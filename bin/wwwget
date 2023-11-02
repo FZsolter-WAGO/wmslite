@@ -1,0 +1,165 @@
+#!/bin/bash
+#############################################################
+#                                                           #
+# Bash script for installing WattsONLite from Github        #
+#                                                           #
+# 2023.07.19.       1.0.3    Making this more quiet         #
+# 2023.03.30.       1.0.2    Hotfix - error when used in    #
+#                            the codesys folder             #
+# 2022.12.14.       1.0.1    Backup feature added           #
+# 2022.12.13.       1.0.0    Initial release                #
+#                                                           #
+# WAGO Hungária Kft. - Fekete Zsolt <zsolt.fekete@wago.com> #
+#                                                           #
+#############################################################
+
+# 1.0.2 hotfix
+cd /
+
+# Parameters
+WATTSONLITE_REPOSITORY="https://raw.githubusercontent.com/FZsolter-WAGO/wattsonlite"
+
+# Output padding
+echo -e ""
+
+# Functions
+get_device_details () {
+    DEVICE_LABEL=$(/etc/config-tools/get_typelabel_value "ORDER")
+    FIRMWARE_VERSION=$(/etc/config-tools/get_coupler_details firmware-revision)
+}
+get_device_details
+
+list_versions () {
+    RETVAL=$(wget -qO- --no-check-certificate "$WATTSONLITE_REPOSITORY/main/versions" | grep $FIRMWARE_VERSION)
+
+}
+
+cmd_list () {
+    list_versions
+    LATEST_VERSION=$(echo $RETVAL | grep default | head -n 1)
+    if [ -n "$RETVAL" ]
+    then
+        echo -e "$RETVAL" | while read line; do
+            echo -e "   $(echo -e "$line" | awk '{print $2" "$3}')"
+        done
+        touch /root/.wwwget
+        if [ "$LATEST_VERSION" != "$(cat /root/.wwwget)" ]
+        then
+            echo -e "   ${GN}New version available!${NC}"
+        fi
+    else
+        echo -e "   No version found for $FIRMWARE_VERSION!"
+        exit 1
+    fi
+}
+
+cmd_current () {
+    touch /root/.wwwget
+    INTERNAL_VAR="$(cat /root/.wwwget | awk '{print $2" "$3}')"
+    if [ -n "$INTERNAL_VAR" ]
+    then
+        echo -e "   $INTERNAL_VAR"
+    else
+        echo -e "   No installed version found!"
+    fi
+}
+
+cmd_install () {
+    if [ -n "$input2" ]
+    then
+        if [ "$input2" = "latest" ]
+        then
+            input4="$input3"
+            list_versions
+            echo -e "   Latest version is: $(echo $RETVAL | grep default | head -n 1 | awk '{print $2" "$3}')"
+            input2="$(echo $RETVAL | grep default | head -n 1 | awk '{print $2}')"
+            input3="$(echo $RETVAL | grep default | head -n 1 | awk '{print $3}')"
+        fi
+        if [ -n "$input3" ]
+        then
+            touch /root/.wwwget
+            if [ "$input4" = "force" ] || [ "$(cat /root/.wwwget | awk '{print $2" "$3}')" != "$input2 $input3" ]
+            then
+                rm /tmp/wwwget -rf
+                mkdir -p /tmp/wwwget
+                wget -qO /tmp/wwwget/firmware_backup_codesys.tgz --no-check-certificate "$WATTSONLITE_REPOSITORY/main/packages/$DEVICE_LABEL/$input2/$input3/firmware_backup_codesys.tgz" &>/dev/null
+                if [ -n "$(ls /tmp/wwwget)" ]
+                then
+                    echo -e "   Starting runtime restore..."
+                    mv /home/codesys_root/PlcLogic/wattson.config.csv /root/wattson.config.csv &>/dev/null
+                    /etc/config-tools/firmware_restore_admin -d device-medium=network upload-dir=/tmp/wwwget package-codesys=1 package-settings=0 package-system=0 passphrase= &>/dev/null
+                    while [ "$(/etc/config-tools/firmware_restore_status -q)" != "finished" ]
+                    do
+                        sleep 5
+                    done
+                    mv /root/wattson.config.csv /home/codesys_root/PlcLogic/wattson.config.csv &>/dev/null
+                    echo -n "$FIRMWARE_VERSION $input2 $input3" > /root/.wwwget
+                else
+                    echo -e "   Unable to download ${GN}$input2 $input3${NC} runtime backup package!"
+                fi
+                wget -qO /tmp/wwwget/install-wattsonlite-configurator_armhf.ipk --no-check-certificate "$WATTSONLITE_REPOSITORY/main/packages/$DEVICE_LABEL/$input2/$input3/install-wattsonlite-configurator_armhf.ipk" &>/dev/null
+                if [ -n "$(ls /tmp/wwwget)" ]
+                then
+                    echo -e "   Starting configurator install..."
+                    opkg install /tmp/wwwget/install-wattsonlite-configurator_armhf.ipk &>/dev/null
+                else
+                    echo -e "   Unable to download ${GN}$input2 $input3${NC} configurator package!"
+                fi
+                echo -e "   Done! Configuration site is available at ${GN}https://<PLC address>/wattson${NC}"
+            else
+                echo -e "   Version already installed!"
+                echo -e "   Use force attribute to do otherwise!"
+            fi
+        else
+            echo -e "   Missing arguments!"
+            echo -e ""
+            echo -e "   Usage: ${GN}wwwget install <version> <edition>${NC}"
+            echo -e "   Example: ${GN}wwwget install 5.0.2 default${NC} or ${GN}wwwget install 5.0.2 default force${NC}"
+            echo -e ""
+            echo -e "   Use latest version's default edition: ${GN}wwwget install latest${NC} or ${GN}wwwget install latest force${NC}"
+        fi
+    else
+        echo -e "   Missing arguments!"
+        echo -e ""
+        echo -e "   Usage: ${GN}wwwget install <version> <edition>${NC}"
+        echo -e "   Example: ${GN}wwwget install 5.0.2 default${NC} or ${GN}wwwget install 5.0.2 default force${NC}"
+        echo -e ""
+        echo -e "   Use latest version's default edition: ${GN}wwwget install latest${NC} or ${GN}wwwget install latest force${NC}"
+    fi
+}
+
+# Global variables
+GN='\033[0;32m'
+NC='\033[0m'
+input1="$1"
+input2="$2"
+input3="$3"
+input4="$4"
+
+# Commands
+case $input1 in
+    list)
+        cmd_list
+        ;;
+
+    current)
+        cmd_current
+        ;;
+
+    install)
+        cmd_install
+        ;;
+
+    *)
+        echo -e "   wwwget 1.0.3 - Tool for downloading and installing WattsONLite from the Github repository"
+        echo -e ""
+        echo -e "   Usage: ${GN}wwwget${NC} (${GN}list${NC}|${GN}current${NC}|${GN}install${NC})"
+        echo -e ""
+        echo -e "       ${GN}list${NC}      Prints every available versions for the current device and firmware"
+        echo -e "       ${GN}current${NC}   Prints the current installed version on the system (contents of /root/.wwwget)"
+        echo -e "       ${GN}install${NC}   Downloads and installs a version"
+        ;;
+esac
+
+# Output padding
+echo -e ""

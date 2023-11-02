@@ -1,0 +1,9 @@
+#!/bin/bash
+while cat /etc/sudoers | grep -q codesys_restart.sh ; do
+    sudo sed -i 's/, \/home\/codesys_root\/PlcLogic\/codesys_restart.sh//' /etc/sudoers
+done
+sudo rm /var/www/wattson -rf
+while ! sudo /etc/init.d/lighttpd reload &> /dev/null ; do
+    :
+done
+exit 0

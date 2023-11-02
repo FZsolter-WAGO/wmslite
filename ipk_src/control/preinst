@@ -1,0 +1,3 @@
+#!/bin/bash
+mv /var/www/wattson/config/wattson.config.json /tmp/wattson.config.json -f &>/dev/null
+exit 0

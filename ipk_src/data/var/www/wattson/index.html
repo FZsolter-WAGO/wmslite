@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" style="font-size:0.75rem">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WattsONLite Configurator</title>
+    <link href="css\bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <style id="wattson_color"  type="text/css"></style>
+	<link rel="icon" type="image/x-icon" href="assets/favicon.png">
+  </head>
+  <body style="padding-top:60px;" class="wattson_color_light_0">
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-md fixed-top navbar-dark wattson_color_light_1">
+      <div class="container-fluid">
+        <a class="navbar-brand">WattsONLite Configurator</a>
+        <ul class="navbar-nav me-auto mb-2 mb-md-0 wattson_color_light_1">
+          <li class="nav-item">
+            <a class="nav-link active" style="cursor:pointer" id="nav_physical">Physical Meters</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" style="cursor:pointer" id="nav_wattson">WattsON Meters</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" style="cursor:pointer" id="nav_backup">Backup/Restore</a>
+          </li>
+          <li class="nav-item">
+            <div class="btn-group" role="group">
+              <input type="radio" class="btn-check" name="btnradio" id="btnradiolight" autocomplete="off">
+              <label class="btn btn-light" for="btnradiolight" id="btnradiolight-label">Light</label>
+              <input type="radio" class="btn-check" name="btnradio" id="btnradiodark" autocomplete="off">
+              <label class="btn btn-dark" for="btnradiodark" id="btnradiodark-label">Dark</label>
+            </div>
+          </li>
+        </ul>
+        <div class="px-2" id="password_field">
+          <div class="input-group">
+            <span class="input-group-text wattson_color_light_2" style="min-width:150px">Password of "admin"</span>
+            <input type="password" class="form-control wattson_color_light_4" id="login-password">
+          </div>
+        </div>
+        <div class="px-2">
+          <button class="btn btn-outline-light" id="read_button"><u class="pe-2">▲</u>Read Configuration</button>
+        </div>
+        <div class="px-2">
+          <button class="btn btn-outline-light disabled" id="write_button"><u class="pe-2">▼</u>Write Configuration</button>
+        </div>
+      </div>
+    </nav>
+    <!-- Main container -->
+    <main role="main" class="container w-50">
+      <div class="wattson_color_light_1 p-4 rounded my-4" id="title_box">
+        <h1>WattsONLite Configurator</h1>
+        <h2>Loading, please wait...</h2>
+      </div>
+        <div class="mb-2" id="content_box">
+      </div>
+    </main>
+    <script src="js/misc.js" crossorigin="anonymous"></script>
+    <script src="js/csv_converter.js" crossorigin="anonymous"></script>
+    <script src="js/render.js" crossorigin="anonymous"></script>
+    <script src="js/app.js" crossorigin="anonymous"></script>
+    <script src="css/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+  </body>
+</html>

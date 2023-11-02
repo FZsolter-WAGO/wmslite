@@ -1,0 +1,11 @@
+#!/bin/bash
+mv /tmp/wattson.config.json /var/www/wattson/config/wattson.config.json -f &>/dev/null
+sudo chown www:www /var/www/wattson -R
+if ! cat /etc/sudoers | grep -q codesys_restart.sh ; then
+    sudo sed -i '/www ALL=NOPASSWD:/s/$/, \/home\/codesys_root\/PlcLogic\/codesys_restart.sh/' /etc/sudoers
+fi
+while ! sudo /etc/init.d/lighttpd reload &> /dev/null ; do
+    :
+done
+exit 0
+

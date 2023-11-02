@@ -1,0 +1,9 @@
+#/bin/bash
+
+WATTSON_HOST="http://192.168.1.17"
+WWWGET_PATH="/wattsonlite/main/bin/wwwget"
+WWWGET_ARGS="$1 $2 $3"
+
+while read -u 9 line; do
+    sshpass -p $(echo $line | awk '{print $2}') ssh -oStrictHostKeyChecking=no root@$(echo $line | awk '{print $1}') "wget -qO- --no-check-certificate $WATTSON_HOST$WWWGET_PATH | bash -s $WWWGET_ARGS" &
+done 9< $(dirname "$(which "$0")")/plc_list
