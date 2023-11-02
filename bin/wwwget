@@ -1,7 +1,7 @@
 #!/bin/bash
 #############################################################
 #                                                           #
-# Bash script for installing WattsONLite from Github        #
+# Bash script for installing WMSLite from Github        #
 #                                                           #
 # 2023.07.19.       1.0.3    Making this more quiet         #
 # 2023.03.30.       1.0.2    Hotfix - error when used in    #
@@ -17,7 +17,7 @@
 cd /
 
 # Parameters
-WATTSONLITE_REPOSITORY="https://raw.githubusercontent.com/FZsolter-WAGO/wattsonlite"
+WATTSONLITE_REPOSITORY="https://raw.githubusercontent.com/FZsolter-WAGO/wmslite"
 
 # Output padding
 echo -e ""
@@ -86,26 +86,26 @@ cmd_install () {
                 if [ -n "$(ls /tmp/wwwget)" ]
                 then
                     echo -e "   Starting runtime restore..."
-                    mv /home/codesys_root/PlcLogic/wattson.config.csv /root/wattson.config.csv &>/dev/null
+                    mv /home/codesys_root/PlcLogic/wms.config.csv /root/wms.config.csv &>/dev/null
                     /etc/config-tools/firmware_restore_admin -d device-medium=network upload-dir=/tmp/wwwget package-codesys=1 package-settings=0 package-system=0 passphrase= &>/dev/null
                     while [ "$(/etc/config-tools/firmware_restore_status -q)" != "finished" ]
                     do
                         sleep 5
                     done
-                    mv /root/wattson.config.csv /home/codesys_root/PlcLogic/wattson.config.csv &>/dev/null
+                    mv /root/wms.config.csv /home/codesys_root/PlcLogic/wms.config.csv &>/dev/null
                     echo -n "$FIRMWARE_VERSION $input2 $input3" > /root/.wwwget
                 else
                     echo -e "   Unable to download ${GN}$input2 $input3${NC} runtime backup package!"
                 fi
-                wget -qO /tmp/wwwget/install-wattsonlite-configurator_armhf.ipk --no-check-certificate "$WATTSONLITE_REPOSITORY/main/packages/$DEVICE_LABEL/$input2/$input3/install-wattsonlite-configurator_armhf.ipk" &>/dev/null
+                wget -qO /tmp/wwwget/install-wmslite-configurator_armhf.ipk --no-check-certificate "$WATTSONLITE_REPOSITORY/main/packages/$DEVICE_LABEL/$input2/$input3/install-wmslite-configurator_armhf.ipk" &>/dev/null
                 if [ -n "$(ls /tmp/wwwget)" ]
                 then
                     echo -e "   Starting configurator install..."
-                    opkg install /tmp/wwwget/install-wattsonlite-configurator_armhf.ipk &>/dev/null
+                    opkg install /tmp/wwwget/install-wmslite-configurator_armhf.ipk &>/dev/null
                 else
                     echo -e "   Unable to download ${GN}$input2 $input3${NC} configurator package!"
                 fi
-                echo -e "   Done! Configuration site is available at ${GN}https://<PLC address>/wattson${NC}"
+                echo -e "   Done! Configuration site is available at ${GN}https://<PLC address>/wms${NC}"
             else
                 echo -e "   Version already installed!"
                 echo -e "   Use force attribute to do otherwise!"
@@ -151,7 +151,7 @@ case $input1 in
         ;;
 
     *)
-        echo -e "   wwwget 1.0.3 - Tool for downloading and installing WattsONLite from the Github repository"
+        echo -e "   wwwget 1.0.3 - Tool for downloading and installing WMSLite from the Github repository"
         echo -e ""
         echo -e "   Usage: ${GN}wwwget${NC} (${GN}list${NC}|${GN}current${NC}|${GN}install${NC})"
         echo -e ""

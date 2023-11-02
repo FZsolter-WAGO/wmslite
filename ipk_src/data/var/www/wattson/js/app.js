@@ -1,6 +1,6 @@
 /*
 
-Compatible with WattsONLite 5.4.1
+Compatible with WMSLite 5.4.1
 
 */
 
@@ -13,16 +13,16 @@ function main() {
     // Add safety prompt
     window.addEventListener("beforeunload", (e)=>{e.returnValue=0})
     // Add colors
-    render.initCssRule('.wattson_color_light_0','color:black;background-color:#FFFFFF;border:none;')
-    render.initCssRule('.wattson_color_light_1','color:black;background-color:rgb(239,240,242);border-color:#7f7f7f;')
-    render.initCssRule('.wattson_color_light_2','color:white;background-color:rgb(110,200,0);border:none;')
-    render.initCssRule('.wattson_color_light_3','color:black;background-color:rgb(239,240,242);border:none;')
-    render.initCssRule('.wattson_color_light_4','color:black;background-color:rgb(239,240,242);border-color:#7f7f7f;')
-    render.initCssRule('.wattson_color_dark_0','color:white;background-color:#2C3333;border-color:#868da1b6;')
-    render.initCssRule('.wattson_color_dark_1','color:white;background-color:#404258;border-color:#868da1b6;')
-    render.initCssRule('.wattson_color_dark_2','color:white;background-color:#474E68;border-color:#868da1b6;')
-    render.initCssRule('.wattson_color_dark_3','color:white;background-color:#50577A;border-color:#868da1b6;')
-    render.initCssRule('.wattson_color_dark_4','color:white;background-color:#6b728f;border-color:#868da1b6;')
+    render.initCssRule('.wms_color_light_0','color:black;background-color:#FFFFFF;border:none;')
+    render.initCssRule('.wms_color_light_1','color:black;background-color:rgb(239,240,242);border-color:#7f7f7f;')
+    render.initCssRule('.wms_color_light_2','color:white;background-color:rgb(110,200,0);border:none;')
+    render.initCssRule('.wms_color_light_3','color:black;background-color:rgb(239,240,242);border:none;')
+    render.initCssRule('.wms_color_light_4','color:black;background-color:rgb(239,240,242);border-color:#7f7f7f;')
+    render.initCssRule('.wms_color_dark_0','color:white;background-color:#2C3333;border-color:#868da1b6;')
+    render.initCssRule('.wms_color_dark_1','color:white;background-color:#404258;border-color:#868da1b6;')
+    render.initCssRule('.wms_color_dark_2','color:white;background-color:#474E68;border-color:#868da1b6;')
+    render.initCssRule('.wms_color_dark_3','color:white;background-color:#50577A;border-color:#868da1b6;')
+    render.initCssRule('.wms_color_dark_4','color:white;background-color:#6b728f;border-color:#868da1b6;')
     // Add password field to navbar
     document.querySelector('#login-password').addEventListener('change',(e)=>{
         env.password = e.target.value;
@@ -41,8 +41,8 @@ function main() {
     document.querySelector('#nav_physical').addEventListener("click",()=>{
         render.physical()
     })
-    document.querySelector('#nav_wattson').addEventListener("click",()=>{
-        render.wattson()
+    document.querySelector('#nav_wms').addEventListener("click",()=>{
+        render.wms()
     })
     document.querySelector('#nav_backup').addEventListener("click",()=>{
         render.backupRestore()
@@ -69,8 +69,8 @@ function main() {
                 render.loading()
                 document.querySelector('#nav_physical').classList.add('disabled')
                 document.querySelector('#nav_physical').setAttribute('disabled','')
-                document.querySelector('#nav_wattson').classList.add('disabled')
-                document.querySelector('#nav_wattson').setAttribute('disabled','')
+                document.querySelector('#nav_wms').classList.add('disabled')
+                document.querySelector('#nav_wms').setAttribute('disabled','')
                 document.querySelector('#nav_backup').classList.add('disabled')
                 document.querySelector('#nav_backup').setAttribute('disabled','')
                 document.querySelector('#btnradiolight-label').classList.add('disabled')
@@ -88,8 +88,8 @@ function main() {
                     alert(r)
                     document.querySelector('#nav_physical').classList.remove('disabled')
                     document.querySelector('#nav_physical').removeAttribute('disabled')
-                    document.querySelector('#nav_wattson').classList.remove('disabled')
-                    document.querySelector('#nav_wattson').removeAttribute('disabled')
+                    document.querySelector('#nav_wms').classList.remove('disabled')
+                    document.querySelector('#nav_wms').removeAttribute('disabled')
                     document.querySelector('#nav_backup').classList.remove('disabled')
                     document.querySelector('#nav_backup').removeAttribute('disabled')
                     document.querySelector('#btnradiolight-label').classList.remove('disabled')

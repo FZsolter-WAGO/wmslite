@@ -93,7 +93,7 @@ async function loadConfigJSON() {
 			break;
 	}
 	try {
-    	let response2 = await fetch('config/wattson.config.json')
+    	let response2 = await fetch('config/wms.config.json')
 		data = await response2.json()
 		return(await data)
 	} catch (e) {

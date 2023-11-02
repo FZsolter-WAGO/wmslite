@@ -1,14 +1,14 @@
-﻿# WattsONLite Offline installer
+﻿# WMSLite Offline installer
 
 #### 0) Install sshpass
-#### 1) Copy the repository onto the WattsON server, like /var/www/wattson/backend/wattsonlite/main/versions
-#### 2) Modify the script /var/www/wattson/backend/wattsonlite/main/bin/wwwget
+#### 1) Copy the repository onto the WMS server, like /var/www/wms/backend/wmslite/main/versions
+#### 2) Modify the script /var/www/wms/backend/wmslite/main/bin/wwwget
 ```
-WATTSONLITE_REPOSITORY="http://<Server IP address>/wattsonlite"
+WATTSONLITE_REPOSITORY="http://<Server IP address>/wmslite"
 ```
 #### 3) Modify the vhost file by adding a new alias
 ```
-Alias /wattsonlite /var/www/wattson/backend/wattsonlite
+Alias /wmslite /var/www/wms/backend/wmslite
 ```
 #### 4) Restart apache2 service
 #### 5) Copy these files somewhere onto the server, /var/www location is prefered
@@ -20,7 +20,7 @@ Alias /wattsonlite /var/www/wattson/backend/wattsonlite
 #### 7) Modify the script ssh_wwwget
 ```
 WATTSON_HOST="http://<Server IP address>"
-WWWGET_PATH="/wattsonlite/main/bin/wwwget"
+WWWGET_PATH="/wmslite/main/bin/wwwget"
 ```
 #### 8) Run the script as wwwget, maybe with hidden stdout
 ```

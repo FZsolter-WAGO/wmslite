@@ -4,10 +4,10 @@ include_once 'auth.php';
 $entityBody = json_decode(file_get_contents('php://input'), true);
 if ( adminAuth($entityBody['password']) ) {
     try {
-        $configFile = fopen('../config/wattson.config.json', 'w');
+        $configFile = fopen('../config/wms.config.json', 'w');
         fwrite($configFile, json_encode($entityBody["json"]));
         fclose($configFile);
-        $configFile = fopen('/home/codesys_root/PlcLogic/wattson.config.csv', 'w');
+        $configFile = fopen('/home/codesys_root/PlcLogic/wms.config.csv', 'w');
         fwrite($configFile, $entityBody["csv"]);
         fclose($configFile);
         exec('sudo /home/codesys_root/PlcLogic/codesys_restart.sh');

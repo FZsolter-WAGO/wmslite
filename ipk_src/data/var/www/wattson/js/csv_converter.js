@@ -50,22 +50,22 @@ function createCsv(config) {
         }
     }
     if (config.virtualMeters.enabled) {
-        csv += `gConfig.typConnectionConfig.sWattsOnHostServer;STRING;'${config.virtualMeters.host}'\r\n`
-        csv += `gConfig.typConnectionConfig.sWattsOnPassword;STRING;'${config.virtualMeters.password}'\r\n`
-        csv += `gConfig.typConnectionConfig.xWattsOnSecure;BOOL;${(config.virtualMeters.secure)?'TRUE':'FALSE'}\r\n`
-        csv += `gConfig.typConnectionConfig.xWattsOnOnlyPriority;BOOL;${(config.virtualMeters.onlyPriority)?'TRUE':'FALSE'}\r\n`
-        csv += `gConfig.typConnectionConfig.xWattsOnConnectionErrorReboot;BOOL;${(config.virtualMeters.rebootOnError)?'TRUE':'FALSE'}\r\n`
-        csv += `gConfig.typConnectionConfig.typWattsOnSSL_Options.sCA_Cert;STRING;'${config.virtualMeters.sslconf.caCert}'\r\n`
-        csv += `gConfig.typConnectionConfig.typWattsOnSSL_Options.sCA_Path;STRING;'${config.virtualMeters.sslconf.caPath}'\r\n`
-        csv += `gConfig.typConnectionConfig.typWattsOnSSL_Options.xVerifyPeer;BOOL;${(config.virtualMeters.sslconf.verifyPeer)?'TRUE':'FALSE'}\r\n`
-        csv += `gConfig.typConnectionConfig.typWattsOnSSL_Options.xVerifyHost;BOOL;${(config.virtualMeters.sslconf.verifyHost)?'TRUE':'FALSE'}\r\n`
-        csv += `gConfig.typConnectionConfig.typWattsOnSSL_Options.sClientCert;STRING;'${config.virtualMeters.sslconf.clientCert}'\r\n`
-        csv += `gConfig.typConnectionConfig.typWattsOnSSL_Options.sClientCert_Key;STRING;'${config.virtualMeters.sslconf.clientCertKey}'\r\n`
-        csv += `gConfig.typConnectionConfig.typWattsOnSSL_Options.sClientCert_KeyPasswd;STRING;'${config.virtualMeters.sslconf.clientCertKeyPasswd}'\r\n`
+        csv += `gConfig.typConnectionConfig.sWMSHostServer;STRING;'${config.virtualMeters.host}'\r\n`
+        csv += `gConfig.typConnectionConfig.sWMSPassword;STRING;'${config.virtualMeters.password}'\r\n`
+        csv += `gConfig.typConnectionConfig.xWMSSecure;BOOL;${(config.virtualMeters.secure)?'TRUE':'FALSE'}\r\n`
+        csv += `gConfig.typConnectionConfig.xWMSOnlyPriority;BOOL;${(config.virtualMeters.onlyPriority)?'TRUE':'FALSE'}\r\n`
+        csv += `gConfig.typConnectionConfig.xWMSConnectionErrorReboot;BOOL;${(config.virtualMeters.rebootOnError)?'TRUE':'FALSE'}\r\n`
+        csv += `gConfig.typConnectionConfig.typWMSSSL_Options.sCA_Cert;STRING;'${config.virtualMeters.sslconf.caCert}'\r\n`
+        csv += `gConfig.typConnectionConfig.typWMSSSL_Options.sCA_Path;STRING;'${config.virtualMeters.sslconf.caPath}'\r\n`
+        csv += `gConfig.typConnectionConfig.typWMSSSL_Options.xVerifyPeer;BOOL;${(config.virtualMeters.sslconf.verifyPeer)?'TRUE':'FALSE'}\r\n`
+        csv += `gConfig.typConnectionConfig.typWMSSSL_Options.xVerifyHost;BOOL;${(config.virtualMeters.sslconf.verifyHost)?'TRUE':'FALSE'}\r\n`
+        csv += `gConfig.typConnectionConfig.typWMSSSL_Options.sClientCert;STRING;'${config.virtualMeters.sslconf.clientCert}'\r\n`
+        csv += `gConfig.typConnectionConfig.typWMSSSL_Options.sClientCert_Key;STRING;'${config.virtualMeters.sslconf.clientCertKey}'\r\n`
+        csv += `gConfig.typConnectionConfig.typWMSSSL_Options.sClientCert_KeyPasswd;STRING;'${config.virtualMeters.sslconf.clientCertKeyPasswd}'\r\n`
         for (let vm_index = 1; vm_index - 1 < config.virtualMeters.meters.length; vm_index++) {
             const virtualMeter = config.virtualMeters.meters[vm_index - 1];
             csv += `gConfig.typVirtualMeterConfig.aVirtualMeterEnable[${vm_index}];BOOL;${(virtualMeter.enabled)?'TRUE':'FALSE'}\r\n`
-            csv += `gConfig.typVirtualMeterConfig.aVirtualMeterUUIDs[${vm_index}];STRING(36);'${virtualMeter.wattson_uuid}'\r\n`
+            csv += `gConfig.typVirtualMeterConfig.aVirtualMeterUUIDs[${vm_index}];STRING(36);'${virtualMeter.wms_uuid}'\r\n`
             config.physicalMeters.plcModules.meters.forEach(meter => {
                 if (meter.enabled) {
                     if (meter.uuid === virtualMeter.physicalMeterUuid) {
