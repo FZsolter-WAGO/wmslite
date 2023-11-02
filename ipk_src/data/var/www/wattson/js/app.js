@@ -1,6 +1,6 @@
 /*
 
-Compatible with WMSLite 6.0.0
+Compatible with WmsLite 6.0.0
 
 */
 

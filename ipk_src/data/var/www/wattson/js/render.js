@@ -38,7 +38,7 @@ class renderclass {
     }
     loading() {
         this.changeTheme(config.darkMode?'dark':'light')
-        this.title_box.innerHTML = `<h1>WMSLite Configurator</h1><h2>Loading, please wait...</h2>`
+        this.title_box.innerHTML = `<h1>WmsLite Configurator</h1><h2>Loading, please wait...</h2>`
         this.content_box.innerHTML = ``
     }
     _plcModules(box) {

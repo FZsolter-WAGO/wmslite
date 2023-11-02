@@ -1,4 +1,4 @@
-﻿# WMSLite Online installer
+﻿# WmsLite Online installer
 
 Quick and dirty way of using this:
 ```
