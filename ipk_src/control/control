@@ -1,7 +1,0 @@
-Package: install-wmslite-configurator
-Priority: optional
-Version: 1.5.1
-Section: base
-Architecture: armhf
-Maintainer: "Zsolt Fekete <zsolt.fekete@wago.com>"
-Description: WMSLite Configurator

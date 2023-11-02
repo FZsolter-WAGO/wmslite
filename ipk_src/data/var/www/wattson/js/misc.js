@@ -3,46 +3,6 @@ async function loadConfigJSON() {
 	let orderNumber = await response1.text()
 	let data = {"limits":{"plcModules":0,"rtuMeters":0,"tcpMeters":0,"digitalInputs":0,"rtdChannels":0,"virtualMeters":0},"physicalMeters":{"plcModules":{"enabled":true,"config":{},"meters":[]},"rtuMeters":{"enabled":true,"config":{"baudrate":0,"parity":0,"stopbits":0},"meters":[]},"tcpMeters":{"enabled":true,"config":{},"gateways":[]},"digitalInputs":{"enabled":true,"config":{},"meters":[]},"rtdChannels":{"enabled":true,"config":{},"meters":[]}},"virtualMeters":{"enabled":true,"host":"","password":"","secure":false,"onlyPriority":false,"rebootOnError":false,"sslconf":{"caCert":"","caPath":"","verifyPeer":true,"verifyHost":true,"clientCert":"","clientCertKey":"","clientCertKeyPasswd":""},"meters":[]},"darkMode":false}
 	switch (orderNumber) {
-		case "750-8000":
-			data.limits.plcModules = 20
-			data.limits.rtuMeters = 0
-			data.limits.tcpMeters = 10
-			data.limits.rtdChannels = 10
-			data.limits.digitalInputs = 10
-			data.limits.virtualMeters = 10
-			break;
-		case "750-8001":
-			data.limits.plcModules = 20
-			data.limits.rtuMeters = 0
-			data.limits.tcpMeters = 10
-			data.limits.rtdChannels = 10
-			data.limits.digitalInputs = 10
-			data.limits.virtualMeters = 10
-			break;
-		case "750-8100":
-			data.limits.plcModules = 20
-			data.limits.rtuMeters = 0
-			data.limits.tcpMeters = 10
-			data.limits.rtdChannels = 10
-			data.limits.digitalInputs = 10
-			data.limits.virtualMeters = 10
-			break;
-		case "750-8101":
-			data.limits.plcModules = 20
-			data.limits.rtuMeters = 0
-			data.limits.tcpMeters = 10
-			data.limits.rtdChannels = 10
-			data.limits.digitalInputs = 10
-			data.limits.virtualMeters = 10
-			break;
-		case "750-8102":
-			data.limits.plcModules = 20
-			data.limits.rtuMeters = 32
-			data.limits.tcpMeters = 10
-			data.limits.rtdChannels = 10
-			data.limits.digitalInputs = 10
-			data.limits.virtualMeters = 10
-			break;
 		case "750-8211":
 			data.limits.plcModules = 20
 			data.limits.rtuMeters = 0
