@@ -4,7 +4,7 @@
 #### 1) Copy the repository onto the WMS server, like /var/www/wms/backend/wmslite/main/versions
 #### 2) Modify the script /var/www/wms/backend/wmslite/main/bin/wwwget
 ```
-WATTSONLITE_REPOSITORY="http://<Server IP address>/wmslite"
+WMSLITE_REPOSITORY="http://<Server IP address>/wmslite"
 ```
 #### 3) Modify the vhost file by adding a new alias
 ```
@@ -19,7 +19,7 @@ Alias /wmslite /var/www/wms/backend/wmslite
 ```
 #### 7) Modify the script ssh_wwwget
 ```
-WATTSON_HOST="http://<Server IP address>"
+WMS_HOST="http://<Server IP address>"
 WWWGET_PATH="/wmslite/main/bin/wwwget"
 ```
 #### 8) Run the script as wwwget, maybe with hidden stdout

@@ -17,7 +17,7 @@
 cd /
 
 # Parameters
-WATTSONLITE_REPOSITORY="https://raw.githubusercontent.com/FZsolter-WAGO/wmslite"
+WMSLITE_REPOSITORY="https://raw.githubusercontent.com/FZsolter-WAGO/wmslite"
 
 # Output padding
 echo -e ""
@@ -30,7 +30,7 @@ get_device_details () {
 get_device_details
 
 list_versions () {
-    RETVAL=$(wget -qO- --no-check-certificate "$WATTSONLITE_REPOSITORY/main/versions" | grep $FIRMWARE_VERSION)
+    RETVAL=$(wget -qO- --no-check-certificate "$WMSLITE_REPOSITORY/main/versions" | grep $FIRMWARE_VERSION)
 
 }
 
@@ -82,7 +82,7 @@ cmd_install () {
             then
                 rm /tmp/wwwget -rf
                 mkdir -p /tmp/wwwget
-                wget -qO /tmp/wwwget/firmware_backup_codesys.tgz --no-check-certificate "$WATTSONLITE_REPOSITORY/main/packages/$DEVICE_LABEL/$input2/$input3/firmware_backup_codesys.tgz" &>/dev/null
+                wget -qO /tmp/wwwget/firmware_backup_codesys.tgz --no-check-certificate "$WMSLITE_REPOSITORY/main/packages/$DEVICE_LABEL/$input2/$input3/firmware_backup_codesys.tgz" &>/dev/null
                 if [ -n "$(ls /tmp/wwwget)" ]
                 then
                     echo -e "   Starting runtime restore..."
@@ -97,7 +97,7 @@ cmd_install () {
                 else
                     echo -e "   Unable to download ${GN}$input2 $input3${NC} runtime backup package!"
                 fi
-                wget -qO /tmp/wwwget/install-wmslite-configurator_armhf.ipk --no-check-certificate "$WATTSONLITE_REPOSITORY/main/packages/$DEVICE_LABEL/$input2/$input3/install-wmslite-configurator_armhf.ipk" &>/dev/null
+                wget -qO /tmp/wwwget/install-wmslite-configurator_armhf.ipk --no-check-certificate "$WMSLITE_REPOSITORY/main/packages/$DEVICE_LABEL/$input2/$input3/install-wmslite-configurator_armhf.ipk" &>/dev/null
                 if [ -n "$(ls /tmp/wwwget)" ]
                 then
                     echo -e "   Starting configurator install..."
