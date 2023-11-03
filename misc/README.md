@@ -1,4 +1,4 @@
-﻿# WmsLite Offline installer
+﻿# WMSLite Offline installer
 
 #### 0) Install sshpass
 #### 1) Copy the repository onto the WMS server, like /var/www/wms/backend/wmslite/main/versions

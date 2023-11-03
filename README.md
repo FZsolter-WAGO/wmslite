@@ -1,6 +1,6 @@
 # Work in progress, not functioning yet!
 
-# WmsLite Online installer
+# WMSLite Online installer
 
 Check the available versions for the current PLC and firmware:
 ```

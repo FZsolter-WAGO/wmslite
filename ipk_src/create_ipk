@@ -13,7 +13,7 @@ Version: ${ipk_version}
 Section: base
 Architecture: armhf
 Maintainer: \"Zsolt Fekete <zsolt.fekete@wago.com>\"
-Description: WmsLite Configurator" > control
+Description: WMSLite Configurator" > control
 chmod +x post*
 chmod +x pre*
 tar -czvf control.tar.gz ./*
