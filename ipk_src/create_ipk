@@ -1,10 +1,11 @@
 #!/bin/bash
 
 ipk_name=install-wmslite-configurator
-ipk_version=2.0.0
+ipk_version=2.0.1
 
 
 cd $(dirname ${BASH_SOURCE[0]})
+find . -type f -exec unix2dos -u {} \;
 echo "2.0" > debian-binary
 cd control
 echo "Package: ${ipk_name}
@@ -22,7 +23,7 @@ cd ../data
 tar -czvf data.tar.gz ./*
 mv data.tar.gz ../
 cd ..
-rm ${ipk_name}_${ipk_version}_armhf.ipk
+rm ${ipk_name}_${ipk_version}_armhf.ipk -f
 ar r ${ipk_name}_${ipk_version}_armhf.ipk ./debian-binary ./control.tar.gz ./data.tar.gz
 rm debian-binary
 rm control.tar.gz

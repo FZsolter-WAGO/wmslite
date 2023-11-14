@@ -1,12 +1,12 @@
 /*
 
-Compatible with WMSLite 6.0.0
+Compatible with WMSLite 6.1.0
 
 */
 
 var render = new renderclass(document.querySelector('main'));
 var config = {}
-var env = {"password":""}
+var env = {"password":"","mac":""}
 
 
 function main() {
@@ -107,6 +107,14 @@ function main() {
             }
         }
     })
+    // Read out MAC address
+    getMac().then((mac) => {
+        if (mac == '') {
+            env.mac = "xx:xx:xx:xx:xx:xx"
+        } else {
+            env.mac = mac
+        }
+    });
     // Load config while at startup
     loadConfigJSON().then((data) => {
         config = data

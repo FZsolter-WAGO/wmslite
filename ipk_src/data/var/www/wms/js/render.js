@@ -643,6 +643,10 @@ class renderclass {
                         <input type="text" value="${config.virtualMeters.host}" class="form-control wms_color_${config.darkMode?'dark':'light'}_4" id="host">
                     </div>`
         tmpHTML += `<div class="input-group mb-1">
+                        <span class="input-group-text wms_color_${config.darkMode?'dark':'light'}_1" style="min-width:150px">MAC Address</span>
+                        <button type="button" class="form-control btn btn-primary text-start wms_color_${config.darkMode?'dark':'light'}_1" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy to clipboard" id="maccopy">${env.mac}</button>
+                    </div>`
+        tmpHTML += `<div class="input-group mb-1">
                         <span class="input-group-text wms_color_${config.darkMode?'dark':'light'}_1" style="min-width:150px">Password</span>
                         <input type="password" value="${config.virtualMeters.password}" class="form-control wms_color_${config.darkMode?'dark':'light'}_4" id="password">
                     </div>`
@@ -720,6 +724,10 @@ class renderclass {
             input.addEventListener("change",(event)=>{
                 config.virtualMeters.host = event.target.value
                 this._wmsConfig(content_box.querySelector("#wmsConfig_box"))
+        })})
+        box.querySelectorAll("#maccopy").forEach(input => {
+            input.addEventListener("click",()=>{
+                navigator.clipboard.writeText(env.mac)
         })})
         box.querySelectorAll("#password").forEach(input => {
             input.addEventListener("change",(event)=>{

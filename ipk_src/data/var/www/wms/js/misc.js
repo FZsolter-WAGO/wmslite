@@ -61,6 +61,11 @@ async function loadConfigJSON() {
 	}
 }
 
+async function getMac() {
+	let response = await fetch('php/macaddress.php')
+	return(await response.text())
+}
+
 async function readUploadedFile(file) {
 	return(await file.text())
 }
