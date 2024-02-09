@@ -1,0 +1,32 @@
+#!/bin/bash
+
+ipk_name=install-wmslite-configurator
+ipk_version=2.1.0-mqtt
+
+
+cd $(dirname ${BASH_SOURCE[0]})
+find . -type f -exec unix2dos -u {} \;
+echo "2.0" > debian-binary
+cd control
+echo "Package: ${ipk_name}
+Priority: optional
+Version: ${ipk_version}
+Section: base
+Architecture: armhf
+Maintainer: \"Zsolt Fekete <zsolt.fekete@wago.com>\"
+Description: WMSLite Configurator" > control
+chmod +x post*
+chmod +x pre*
+tar -czvf control.tar.gz ./*
+mv control.tar.gz ../
+cd ../data
+tar -czvf data.tar.gz ./*
+mv data.tar.gz ../
+cd ..
+rm ${ipk_name}_${ipk_version}_armhf.ipk -f
+ar r ${ipk_name}_${ipk_version}_armhf.ipk ./debian-binary ./control.tar.gz ./data.tar.gz
+rm debian-binary
+rm control.tar.gz
+rm data.tar.gz
+cd control
+rm control

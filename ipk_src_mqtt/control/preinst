@@ -1,0 +1,3 @@
+#!/bin/bash
+mv /var/www/wms/config/wms.config.json /tmp/wms.config.json -f &>/dev/null
+exit 0
