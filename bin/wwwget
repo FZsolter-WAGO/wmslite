@@ -88,6 +88,9 @@ cmd_install () {
                 then
                     echo -e "   Starting runtime restore..."
                     mv /home/codesys_root/PlcLogic/wms.config.csv /root/wms.config.csv &>/dev/null
+                    /etc/init.d/runtime stop &>/dev/null
+                    /etc/config-tools/config_runtime -w runtime-version=0 restart-server=NO &>/dev/null
+                    /etc/config-tools/config_runtime -w runtime-version=1 restart-server=NO &>/dev/null
                     /etc/config-tools/firmware_restore_admin -d device-medium=network upload-dir=/tmp/wwwget package-codesys=1 package-settings=0 package-system=0 passphrase= &>/dev/null
                     while [ "$(/etc/config-tools/firmware_restore_status -q)" != "finished" ]
                     do
