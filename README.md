@@ -1,3 +1,4 @@
+# DEPRECATED
 # WMSLite Online installer
 
 Check the available versions for the current PLC and firmware:
